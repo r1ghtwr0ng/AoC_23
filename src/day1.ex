@@ -12,8 +12,8 @@ defmodule Day1 do
   defp sum_solutions(data) do
     data
     |> String.trim()
-    #|> String.downcase()
-    #|> convert_words() # Part 2 doesn't fucking work, maybe write a decent description of the objective
+    |> String.downcase()
+    |> convert_words() # Part 2 doesn't fucking work, maybe write a decent description of the objective
     |> String.split("\n")
     |> Enum.reduce(0, fn word, acc -> acc + solve_word(word) end)
   end
@@ -55,15 +55,15 @@ defmodule Day1 do
   # Part 2
   defp digit_map(word) do
     case word do
-      "one" -> "1"
-      "two" -> "2"
-      "three" -> "3"
-      "four" -> "4"
-      "five" -> "5"
-      "six" -> "6"
-      "seven" -> "7"
-      "eight" -> "8"
-      "nine" -> "9"
+      "one" -> "o1e"
+      "two" -> "t2o"
+      "three" -> "t3ree"
+      "four" -> "f4ur"
+      "five" -> "f5ve"
+      "six" -> "s6x"
+      "seven" -> "s7ven"
+      "eight" -> "e8ght"
+      "nine" -> "n9ne"
       _ -> word
     end
   end
