@@ -1,6 +1,6 @@
 import numpy as np
 
-card_order = np.array(['2', '3', '4', '5', '6', '7', '8', '9', 'T', 'J', 'Q', 'K', 'A'])
+card_order = np.array(['J', '2', '3', '4', '5', '6', '7', '8', '9', 'T', 'Q', 'K', 'A']) # Part 2 ordering
 
 def solve(data):
     rounds = data.strip().split("\n")
@@ -22,7 +22,17 @@ def get_orderings(hand):
     for i, card in enumerate(hand):
         sorting[i+1] = np.where(card_order == card)[0][0]
 
-    _, counts = np.unique(hand, return_counts=True)
+    cards, counts = np.unique(hand, return_counts=True)
+    # Part 2 code, just ditch this bit of code if trying to do part 1.
+    joker_idx = np.where(cards == 'J')
+    if joker_idx[0].size > 0:
+        cock = counts
+        value = counts[joker_idx[0][0]]
+        if value != 5:
+            counts = np.delete(counts, joker_idx[0][0])
+            update_idx = np.argmax(counts)
+            counts[update_idx] += value
+
     sorting[0] = get_primary(np.sort(counts))
     return sorting
 
