@@ -68,14 +68,14 @@ defmodule Day2Part2 do
     end
   end
 
-  def calculate(data) do
+  defp calculate(data) do
     data
     |> String.trim()
     |> sanitized_split("\n")
     |> Enum.reduce(0, fn game, acc -> handle_game(game) + acc; end)
   end
 
-  def handle_game(game) do # Game iteration
+  defp handle_game(game) do # Game iteration
     game
     |> sanitized_split(":")
     |> Enum.at(1)
@@ -83,7 +83,7 @@ defmodule Day2Part2 do
     |> calculate_power()
   end
 
-  def calculate_power(scores, []) do
+  defp calculate_power(scores, []) do
     Enum.reduce(scores, 1, fn {_color, score}, acc ->
       case Enum.max(score) do
         0 -> acc
@@ -91,7 +91,7 @@ defmodule Day2Part2 do
       end
     end)
   end
-  def calculate_power(scores, [round | tail]) do
+  defp calculate_power(scores, [round | tail]) do
     round
     |> sanitized_split(",")
     |> Enum.reduce(%{}, fn text, acc ->
@@ -103,10 +103,10 @@ defmodule Day2Part2 do
     |> Map.merge(scores, fn _k, list1, list2 -> list1 ++ list2; end)
     |> calculate_power(tail)
   end
-  def calculate_power(rounds), do: calculate_power(%{}, rounds)
+  defp calculate_power(rounds), do: calculate_power(%{}, rounds)
 
   # Split and trim
-  def sanitized_split(text, separator \\ " ") do
+  defp sanitized_split(text, separator \\ " ") do
     text
     |> String.split(separator)
     |> Enum.map(&String.trim/1)
